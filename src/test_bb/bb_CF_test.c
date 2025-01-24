@@ -76,12 +76,13 @@ bool	is_wrong_color(char *line)
 	return (false);
 }
 
-bool	check_color(char *line, t_check_bb *check_list)
+bool	check_color(char *line, t_check_bb *check_list, int fd)
 {
 	if (is_wrong_color(line))
 	{
 		free(line);
 		free(check_list);
+		close(fd);
 		return (false);
 	}
 	return (true);
