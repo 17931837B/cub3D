@@ -5,7 +5,8 @@ bool	name_check(char *name)
 	int	len;
 
 	len = ft_strlen(name);
-	if (name[len - 4] != '.' || name[len - 3] != 'c' || name[len - 2] != 'u' || name[len - 1] != 'b')
+	if (name[len - 4] != '.' || name[len - 3] != 'c'
+		|| name[len - 2] != 'u' || name[len - 1] != 'b')
 	{
 		printf("Error\nFile name is not correct. (***.cub)\n");
 		return (true);
@@ -15,7 +16,7 @@ bool	name_check(char *name)
 
 bool	open_check(char *file_path)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)

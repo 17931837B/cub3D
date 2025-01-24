@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	free_box (char **box)
+void	free_box(char **box)
 {
 	int	i;
 
@@ -41,7 +41,9 @@ bool	is_wrong_val(char **list)
 		free_box(list);
 		return (true);
 	}
-	if ((0 <= ft_atoi(list[0])) && (ft_atoi(list[0]) <= 255) && (0 <= ft_atoi(list[1])) && (ft_atoi(list[1]) <= 255) && (0 <= ft_atoi(list[2])) && (ft_atoi(list[2]) <= 255))
+	if ((0 <= ft_atoi(list[0])) && (ft_atoi(list[0]) <= 255)
+		&& (0 <= ft_atoi(list[1])) && (ft_atoi(list[1]) <= 255)
+		&& (0 <= ft_atoi(list[2])) && (ft_atoi(list[2]) <= 255))
 	{
 		free_box(list);
 		return (false);
