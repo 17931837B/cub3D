@@ -174,5 +174,5 @@ int		ch(t_cub3d *viw, int x, int y);
 bool	test_bb(int ac, char **av);
 bool	name_check(char *name);
 bool	open_check(char *file_path);
-bool	is_wrong_color(char *line);
+bool	check_color(char *line, t_check_bb *check_list);
 #endif

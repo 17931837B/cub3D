@@ -30,7 +30,6 @@ bool	is_num(char **list)
 		}
 		i++;
 	}
-	printf("hello\n");
 	return (true);
 }
 
@@ -69,14 +68,19 @@ bool	is_wrong_color(char *line)
 		box2 = ft_split(box[1], ',');
 		free (box[1]);
 		free (box);
-		int i = 0;
-		while (box2[i])
-		{
-			printf("%s\n", box2[i]);
-			i++;
-		}
 		if (is_wrong_val(box2))
 			return (true);
 	}
 	return (false);
+}
+
+bool	check_color(char *line, t_check_bb *check_list)
+{
+	if (is_wrong_color(line))
+	{
+		free(line);
+		free(check_list);
+		return (false);
+	}
+	return (true);
 }

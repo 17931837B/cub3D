@@ -38,6 +38,13 @@ bool	is_duplication(t_check_bb *check_list)
 	return (false); 
 }
 
+bool	is_not_elements(t_check_bb *check_list)
+{
+	if (check_list->F != 1 || check_list->C != 1 || check_list->NO != 1 || check_list->WE != 1 || check_list->SO != 1 || check_list->EA != 1)
+		return (true);
+	return (false); 
+}
+
 bool	is_correct_list(t_check_bb *check_list, char *line)
 {
 	if (is_duplication(check_list))
@@ -47,10 +54,11 @@ bool	is_correct_list(t_check_bb *check_list, char *line)
 		printf("Error\nDuplicate elements.\n");
 		return (false);
 	}
-	if (is_wrong_color(line))
+	if (is_not_elements(check_list))
 	{
 		free(line);
 		free(check_list);
+		printf("Error\nSet elements.\n");
 		return (false);
 	}
 	return (true);
@@ -62,13 +70,13 @@ bool	set_bb(char *file_path)
 	char		*line;
 	t_check_bb	*check_list;
 
-	fd = open(file_path, O_RDONLY);
 	check_list = malloc(sizeof(t_check_bb)); 
 	if (!check_list)
 	{
 		printf("Error\nMemory allocation failed\n");
 		return (true);
 	}
+	fd = open(file_path, O_RDONLY);
 	init_check_list(check_list);
 	while (1)
 	{
@@ -76,10 +84,12 @@ bool	set_bb(char *file_path)
 		if (!line)
 			break ;
 		check_list_update(line, &check_list);
-		if (!is_correct_list(check_list, line))
+		if (!check_color(line, check_list))
 			return (true);
 		free(line);
 	}
+	if (!is_correct_list(check_list, line))
+		return (true);
 	free(check_list);
 	close(fd);
 	return (false);
