@@ -34,29 +34,21 @@ bool	set_bb(char *file_path)
 	return (false);
 }
 
-bool	is_map(char *line)
+int	get_long_len(int h_len, char *line)
 {
-	int	i;
+	int	line_len;
 
-	if (line[0] != ' ' && line[0] != '1')
-		return (false);
-	i = 1;
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '1' && line[i] != '0'
-			&& line[i] != 'N' && line[i] != 'W'
-			&& line[i] != 'S' && line[i] != 'E' && line[i] != '\n')
-			return (false);
-		i++;
-	}
-	return (true);
+	line_len = ft_strlen(line);
+	if (line_len >= h_len)
+		return (line_len);
+	return (h_len);
 }
 
-int	count_v_len(int fd, char *line)
+int	count_h_len(int fd, char *line)
 {
-	int	v_len;
+	int	h_len;
 
-	v_len = 1;
+	h_len = 0;
 	if (!line)
 	{
 		close(fd);
@@ -70,19 +62,19 @@ int	count_v_len(int fd, char *line)
 			break ;
 		if (!is_map(line))
 			break ;
-		v_len++;
+		h_len = get_long_len(h_len, line);
 		free (line);
 	}
 	free (line);
 	close (fd);
-	return (v_len);
+	return (h_len);
 }
 
-int	get_map_v_len(char *file_path)
+int	get_map_h_len(char *file_path)
 {
 	int		fd;
 	char	*line;
-	int		v_len;
+	int		h_len;
 
 	fd = open(file_path, O_RDONLY);
 	while (1)
@@ -94,18 +86,78 @@ int	get_map_v_len(char *file_path)
 			break ;
 		free (line);
 	}
-	v_len = count_v_len(fd, line);
-	return (v_len);
+	h_len = count_h_len(fd, line);
+	return (h_len);
 }
 
 char	**get_map(char *path)
 {
 	int		v_len;
-	// int		h_len;
+	int		h_len;
+	char	**map;
+	int		i;
 
 	v_len = get_map_v_len(path);
+	h_len = get_map_h_len(path);
+	map = (char **)malloc(sizeof(char *) * v_len);
+	i = 0;
+	while (i < v_len)
+	{
+		map[i] = ft_calloc(h_len, sizeof(char));
+		i++;
+	}
 	printf("v_len: %d\n", v_len);
-	return (NULL);
+	printf("h_len: %d\n", h_len);
+	return (map);
+}
+
+void	copy_line(char **map, int fd, char *line, int h_len)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (line && is_map(line))
+	{
+		i = 0;
+		while (line[i] && line[i] != '\n')
+		{
+			map[j][i] = line[i];
+			i++;
+		}
+		while (i < h_len - 1)
+		{
+			map[j][i] = ' ';
+			i++;
+		}
+		map[j][i] = '\0';
+		free(line);
+		line = get_next_line(fd);
+		j++;
+	}
+	if (line)
+		free (line);
+	close(fd);
+}
+
+void	bb_create_map(char **map, char *file_path)
+{
+	int		fd;
+	char	*line;
+	int		h_len;
+
+	fd = open(file_path, O_RDONLY);
+	h_len = get_map_h_len(file_path);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (is_map(line))
+			break ;
+		free (line);
+	}
+	copy_line(map, fd, line, h_len);
 }
 
 bool	is_wrong_map(char *path)
@@ -113,8 +165,21 @@ bool	is_wrong_map(char *path)
 	char	**map;
 
 	map = get_map(path);
-	if (map)
-		return (true);
+	bb_create_map(map, path);
+	if (map[0][0] == map[0][33])
+		printf("hello\n");
+	printf("map[0][0] :%c\n", map[0][0]);
+	printf("map[0][33]:%c\n", map[0][33]);
+	printf("map[0][32]:%c\n", map[0][32]);
+	int i;
+	i = 0;
+	while (i < 14)
+	{
+		printf("%s\n", map[i]);
+		free(map[i]);
+		i++;
+	}
+    free(map);
 	return (false);
 }
 

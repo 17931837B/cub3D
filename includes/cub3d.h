@@ -178,4 +178,7 @@ bool		check_color(char *line, t_check_bb *check_list, int fd);
 bool		is_correct_list(t_check_bb *check_list, char *line);
 t_check_bb	*init_check_list(void);
 void		check_list_update(char *line, t_check_bb **check_list);
+int			get_map_v_len(char *file_path);
+bool		is_map(char *line);
+void		free_box(char **box);
 #endif
