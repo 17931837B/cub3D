@@ -115,6 +115,13 @@ typedef struct s_check_bb
 	int	EA;
 }	t_check_bb;
 
+typedef struct s_map_bb
+{
+	int		v_len;
+	int		h_len;
+	char	**map;
+}	t_map_bb;
+
 int			isargcerror(int ac);
 int			isfilenameerror(char **av);
 int			isfileopenerror(char **av);
@@ -181,4 +188,6 @@ void		check_list_update(char *line, t_check_bb **check_list);
 int			get_map_v_len(char *file_path);
 bool		is_map(char *line);
 void		free_box(char **box);
+void		get_map(char *path, t_map_bb *map_list);
+void		bb_create_map(t_map_bb *map_list, char *file_path);
 #endif
