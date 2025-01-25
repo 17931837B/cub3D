@@ -34,12 +34,13 @@ int	count_v_len(int fd, char *line)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!is_map(line))
+		if (line[0] == '\n')
 			break ;
 		v_len++;
 		free (line);
 	}
-	free (line);
+	if (line)
+		free (line);
 	close (fd);
 	return (v_len);
 }

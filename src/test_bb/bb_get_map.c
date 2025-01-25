@@ -26,12 +26,13 @@ int	count_h_len(int fd, char *line)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!is_map(line))
+		if (line[0] == '\n')
 			break ;
 		h_len = get_long_len(h_len, line);
 		free (line);
 	}
-	free (line);
+	if (line)
+		free (line);
 	close (fd);
 	return (h_len);
 }
@@ -62,13 +63,17 @@ void	get_map(char *path, t_map_bb *map_list)
 
 	map_list->v_len = get_map_v_len(path);
 	map_list->h_len = get_map_h_len(path);
+	if (!map_list->v_len || !map_list->h_len)
+	{
+		map_list->map = NULL;
+		printf("Error\nCan't create map.\n");
+		return ;
+	}
 	map_list->map = (char **)malloc(sizeof(char *) * (map_list->v_len + 1));
 	i = 0;
 	while (i < map_list->v_len)
 	{
-		map_list->map[i] = ft_calloc(map_list->h_len, sizeof(char));
+		map_list->map[i] = ft_calloc(map_list->h_len + 1, sizeof(char));
 		i++;
 	}
-	printf("v_len: %d\n", map_list->v_len);
-	printf("h_len: %d\n", map_list->h_len);
 }

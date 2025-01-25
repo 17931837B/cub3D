@@ -92,13 +92,64 @@ bool	check_wall(t_map_bb *map_list)
 		}
 		i++;
 	}
-	printf("hello\n");
+	return (false);
+}
+
+bool	correct_ps(char **map)
+{
+	int	i;
+	int	j;
+	int	ps;
+
+	ps = 0;
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'W'
+				|| map[i][j] == 'S' || map[i][j] == 'E')
+				ps++;
+			j++;
+		}
+		i++;
+	}
+	if (ps == 1)
+		return (true);
+	return (false);
+}
+
+bool	check_chara(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != ' ' && map[i][j] != '1'
+				&& map[i][j] != '0' && map[i][j] != 'N'
+				&& map[i][j] != 'W' && map[i][j] != 'S'
+				&& map[i][j] != 'E')
+				return (true);
+			j++;
+		}
+		i++;
+	}
 	return (false);
 }
 
 bool	check_map(t_map_bb *map_list)
 {
+	if (check_chara(map_list->map))
+		return (false);
 	if (check_wall(map_list))
+		return (false);
+	if (!correct_ps(map_list->map))
 		return (false);
 	return (true);
 }
@@ -110,6 +161,11 @@ bool	is_wrong_map(char *path)
 
 	map_list = malloc(sizeof(t_map_bb));
 	get_map(path, map_list);
+	if (!map_list->map)
+	{
+		free(map_list);
+		return (true);
+	}
 	bb_create_map(map_list, path);
 	is_ok = check_map(map_list);
 	free_box(map_list->map);

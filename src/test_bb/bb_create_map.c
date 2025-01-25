@@ -6,7 +6,7 @@ void	copy_line(t_map_bb *map_list, int fd, char *line)
 	int	j;
 
 	j = 0;
-	while (line && is_map(line))
+	while (line && j < map_list->v_len)
 	{
 		i = 0;
 		while (line[i] && line[i] != '\n')

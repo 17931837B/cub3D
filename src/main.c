@@ -42,30 +42,30 @@ int	first_img_sub(void *param)
 
 int	main(int ac, char **av)
 {
-	// t_cub3d		viw;
-	if (test_bb(ac, av))
-		return (1);
-	// viw.frame_height = Y_SIZE;
-	// viw.frame_width = X_SIZE;
-	// viw.man.pos_z = 0.5;
-	// viw.fov = FOV;
-	// viw.const_fov = (double)viw.fov / 1920 * 1080;
+	t_cub3d		viw;
+
+	viw.frame_height = Y_SIZE;
+	viw.frame_width = X_SIZE;
+	viw.man.pos_z = 0.5;
+	viw.fov = FOV;
+	viw.const_fov = (double)viw.fov / 1920 * 1080;
 	// if (isargumentserror(ac, av))
-	// 	return (1);
-	// if (create_map(&viw, *(av + 1)))
-	// 	exit(0);
-	// if (set_manpos(&viw))
-	// {
-	// 	printf("Error: Player info is wrong.\n");
-	// 	exit(0);
-	// }
-	// viw.mlx = mlx_init();
-	// viw.win = mlx_new_window(viw.mlx, X_SIZE, Y_SIZE, "cub3D");
-	// viw.img.img = mlx_new_image(viw.mlx, X_SIZE, Y_SIZE);
-	// viw.img.addr = mlx_get_data_addr(viw.img.img, &viw.img.bits_per_pixel,
-	// 		&viw.img.line_length, &viw.img.endian);
-	// cub3d(&viw, *(av + 1));
-	// mlx_loop_hook(viw.mlx, first_img_sub, (void *)&viw);
-	// mlx_loop(viw.mlx);
-	// exit(0);
+	if (test_bb(ac, av) || isargumentserror(ac, av))
+		return (1);
+	if (create_map(&viw, *(av + 1)))
+		exit(0);
+	if (set_manpos(&viw))
+	{
+		printf("Error: Player info is wrong.\n");
+		exit(0);
+	}
+	viw.mlx = mlx_init();
+	viw.win = mlx_new_window(viw.mlx, X_SIZE, Y_SIZE, "cub3D");
+	viw.img.img = mlx_new_image(viw.mlx, X_SIZE, Y_SIZE);
+	viw.img.addr = mlx_get_data_addr(viw.img.img, &viw.img.bits_per_pixel,
+			&viw.img.line_length, &viw.img.endian);
+	cub3d(&viw, *(av + 1));
+	mlx_loop_hook(viw.mlx, first_img_sub, (void *)&viw);
+	mlx_loop(viw.mlx);
+	exit(0);
 }
