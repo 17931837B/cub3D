@@ -190,4 +190,7 @@ bool		is_map(char *line);
 void		free_box(char **box);
 void		get_map(char *path, t_map_bb *map_list);
 void		bb_create_map(t_map_bb *map_list, char *file_path);
+bool		check_map(t_map_bb *map_list);
+bool		is_s1(char c);
+bool		is_around_s1(char **map, int i, int j);
 #endif

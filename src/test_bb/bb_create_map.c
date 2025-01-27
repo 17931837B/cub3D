@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+static void	free_and_close(int fd, char *line)
+{
+	if (line)
+		free (line);
+	close(fd);
+}
+
 void	copy_line(t_map_bb *map_list, int fd, char *line)
 {
 	int	i;
@@ -25,9 +32,7 @@ void	copy_line(t_map_bb *map_list, int fd, char *line)
 		j++;
 	}
 	map_list->map[j] = '\0';
-	if (line)
-		free (line);
-	close(fd);
+	free_and_close(fd, line);
 }
 
 void	bb_create_map(t_map_bb *map_list, char *file_path)

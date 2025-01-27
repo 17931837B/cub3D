@@ -49,7 +49,6 @@ int	main(int ac, char **av)
 	viw.man.pos_z = 0.5;
 	viw.fov = FOV;
 	viw.const_fov = (double)viw.fov / 1920 * 1080;
-	// if (isargumentserror(ac, av))
 	if (test_bb(ac, av) || isargumentserror(ac, av))
 		return (1);
 	if (create_map(&viw, *(av + 1)))

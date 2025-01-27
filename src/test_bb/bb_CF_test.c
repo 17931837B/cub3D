@@ -35,7 +35,12 @@ bool	is_num(char **list)
 
 bool	is_wrong_val(char **list)
 {
-	if (!(list[2] && !list[3]) || !is_num(list))
+	int	i;
+
+	i = 0;
+	while (list[i])
+		i++;
+	if (i != 3 || !is_num(list) || list[2][0] == '\n')
 	{
 		printf("Error\nColor value wrong.\n");
 		free_box(list);
@@ -58,8 +63,13 @@ bool	is_wrong_color(char *line)
 	char	**box;
 	char	**box2;
 
-	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
+	if ((line[0] == 'F' || line[0] == 'C'))
 	{
+		if (line[1] != ' ')
+		{
+			printf("Error\nColor value wrong.\n");
+			return (true);
+		}
 		box = ft_split(line, ' ');
 		if (!(box[1] && !box[2]))
 		{
