@@ -1,8 +1,15 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bb_test.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tobaba <tobaba@student.42.fr>              #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-01-27 05:40:54 by tobaba            #+#    #+#             */
+/*   Updated: 2025-01-27 05:40:54 by tobaba           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	set_bb(char *file_path)
