@@ -177,6 +177,7 @@ int			shita(t_cub3d *viw, int x, int y);
 int			mapcheck(t_cub3d *viw);
 int			mapch(t_cub3d *viw);
 int			ch(t_cub3d *viw, int x, int y);
+void		lastft(int *n, int *len, char **str, int *fd);
 //bb
 bool		test_bb(int ac, char **av);
 bool		name_check(char *name);

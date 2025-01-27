@@ -68,14 +68,15 @@ int	mapcre(t_cub3d *viw, char *s)
 	int		fd;
 
 	fd = open(s, O_RDONLY);
-	str = skip(fd);
-	len = 0;
-	n = 0;
+	lastft(&n, &len, &str, &fd);
 	while (str)
 	{
 		len = mapset(viw, str, len, n);
 		if (len == -1)
+		{
+			free(str);
 			return (1);
+		}
 		free(str);
 		str = get_next_line(fd);
 		n++;
