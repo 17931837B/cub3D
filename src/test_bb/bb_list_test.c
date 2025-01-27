@@ -21,45 +21,45 @@ t_check_bb	*init_check_list(void)
 		printf("Error\nMemory allocation failed\n");
 		return (NULL);
 	}
-	check_list->F = 0;
-	check_list->C = 0;
-	check_list->NO = 0;
-	check_list->WE = 0;
-	check_list->SO = 0;
-	check_list->EA = 0;
+	check_list->f = 0;
+	check_list->c = 0;
+	check_list->no = 0;
+	check_list->we = 0;
+	check_list->so = 0;
+	check_list->ea = 0;
 	return (check_list);
 }
 
 void	check_list_update(char *line, t_check_bb **check_list)
 {
 	if (line[0] == 'F')
-		(*check_list)->F++;
+		(*check_list)->f++;
 	if (line[0] == 'C')
-		(*check_list)->C++;
+		(*check_list)->c++;
 	if (line[0] == 'N' && line[1] == 'O')
-		(*check_list)->NO++;
+		(*check_list)->no++;
 	if (line[0] == 'W' && line[1] == 'E')
-		(*check_list)->WE++;
+		(*check_list)->we++;
 	if (line[0] == 'S' && line[1] == 'O')
-		(*check_list)->SO++;
+		(*check_list)->so++;
 	if (line[0] == 'E' && line[1] == 'A')
-		(*check_list)->EA++;
+		(*check_list)->ea++;
 }
 
 bool	is_duplication(t_check_bb *check_list)
 {
-	if (check_list->F > 1 || check_list->C > 1
-		|| check_list->NO > 1 || check_list->WE > 1
-		|| check_list->SO > 1 || check_list->EA > 1)
+	if (check_list->f > 1 || check_list->c > 1
+		|| check_list->no > 1 || check_list->we > 1
+		|| check_list->so > 1 || check_list->ea > 1)
 		return (true);
 	return (false);
 }
 
 bool	is_not_elements(t_check_bb *check_list)
 {
-	if (check_list->F != 1 || check_list->C != 1
-		|| check_list->NO != 1 || check_list->WE != 1
-		|| check_list->SO != 1 || check_list->EA != 1)
+	if (check_list->f != 1 || check_list->c != 1
+		|| check_list->no != 1 || check_list->we != 1
+		|| check_list->so != 1 || check_list->ea != 1)
 		return (true);
 	return (false);
 }

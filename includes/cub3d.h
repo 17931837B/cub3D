@@ -107,12 +107,12 @@ typedef struct s_cub3d
 
 typedef struct s_check_bb
 {
-	int	F;
-	int	C;
-	int	NO;
-	int	WE;
-	int	SO;
-	int	EA;
+	int	f;
+	int	c;
+	int	no;
+	int	we;
+	int	so;
+	int	ea;
 }	t_check_bb;
 
 typedef struct s_map_bb
